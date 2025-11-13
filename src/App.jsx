@@ -1,28 +1,29 @@
-import { useState } from 'react'
+import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Login from './Login'
+import Layout from './Layout'
+import Dashboard from './Dashboard'
+import Sales from './Sales'
+import Finance from './Finance'
+import Customers from './Customers'
+import Assistant from './Assistant'
+import Settings from './Settings'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/app" element={<Layout />}> 
+        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="sales" element={<Sales />} />
+        <Route path="finance" element={<Finance />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="assistant" element={<Assistant />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   )
 }
-
-export default App
